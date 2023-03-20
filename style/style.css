@@ -37,9 +37,13 @@ main {
   flex-direction: row;
   font-family: Inter, sans-serif;
 }
+
 .main-cards {
   min-height: 50vh;
   width: 75%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
 }
 
 .main-details {
@@ -48,10 +52,12 @@ main {
   min-height: 50vh;
   width: 25%;
 }
+
 .main-search {
   display: flex;
   flex-direction: row;
-  height: 20%;
+  height: 10%;
+  margin-top: 20px;
 }
 .search-input {
   height: 40%;
@@ -70,7 +76,7 @@ main {
 
 .main-details aside {
   width: 100%;
-  height: 80%;
+  height: 50%;
 }
 
 .cart-title {
@@ -101,7 +107,7 @@ main {
 }
 
 .cart-details {
-  height: 30%;
+  height: 25%;
   width: 100%;
   background-color: #333333;
   padding: 15px;
@@ -110,10 +116,122 @@ main {
   flex-direction: column;
   justify-content: space-around;
 }
+
+.item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  list-style: none;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.removeButton{
+  display: flex;
+  border: none;
+  height: 30px;
+  width: 20%;
+  padding: 5px ;
+}
+
+.cart-products img {
+  width: 40%;
+  margin: 5px;
+}
+
 .details-values {
   width: 100%;
   color: #ffffff;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.products-list {
+  display: flex;
+  flex-wrap: wrap;
+  height: 34%;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cardProduct {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: first baseline;
+  align-items: center;
+  list-style: none;
+  padding: 30px 3px 39px 3px;
+  gap: 6px;
+  margin: 15px;
+  margin-top: 10px;
+  width: 22%;
+  height: 100%;
+  border: solid 2px transparent;
+}
+
+.cardProduct:hover {
+  border: solid 2px rgba(0, 0, 0, 0.75);
+}
+
+.cardProduct img {
+  max-width: 100%;
+}
+
+.products-list li h2 {
+  font-size: 16px;
+  line-height: 30px;
+  font-weight: bold;
+  margin-right: auto;
+  padding: 5px 0 5px;
+}
+
+li .tag {
+  background-color: #2e245e;
+  color: #ffffff;
+  font-size: 10px;
+  padding: 4px;
+  margin-right: 141px;
+}
+
+li p {
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  text-justify: distribute;
+  line-height: 19px;
+}
+
+.card {
+  background-color: #ffffff;
+  padding: 4px 3px;
+  border-radius: 10px;
+}
+
+.description {
+  line-height: 20px;
+  margin: 5px 0;
+  padding: 5px 0 5px;
+}
+
+.value {
+  font-weight: bold;
+  padding: 5px 0 5px;
+  margin-bottom: 10px;
+  font-size: Inter, sans-serif;
+}
+
+.productButton {
+  background-color: transparent;
+  border: none;
+  margin: 0px;
+  align-items: center;
+  text-align: center;
+  padding: 0px 0 0px;
+}
+
+.productButton:hover {
+  text-decoration: underline;
 }
