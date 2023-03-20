@@ -1,11 +1,17 @@
-function renderCards(lists) {
+//somar
+//metodo include para pesquisa
+//filtrar
+
+let count = 0;
+
+function renderCards(lists) {// lidas de produtos
   let productsList = document.querySelector(".products-list");
 
   for (let i = 0; i < lists.length; i++) {
-    let isData = lists[i];
+    let isData = lists[i]; // abstração
 
     //elementos novos
-    let liData = document.createElement("li");
+    let li = document.createElement("li");
     let div = document.createElement("div");
     let img = document.createElement("img");
     let nameItem = document.createElement("h2");
@@ -15,12 +21,12 @@ function renderCards(lists) {
     let tag = document.createElement("p");
 
     //configuração
-    liData.id = `ini_${isData.id}`;
-    liData.classList.add("cardProduct");
+    li.id = `_${isData.id}`;
+    li.classList.add("cardProduct");
 
     img.src = isData.img;
     div.classList.add("card");
-    nameItem.innerHTML = isData.nameItem;
+    nameItem.innerText = isData.nameItem;
 
     description.innerHTML = isData.description;
     description.classList.add("description");
@@ -32,23 +38,31 @@ function renderCards(lists) {
     tag.classList.add("tag");
 
     //botao add
-    addCart.id = `inp_${isData.id}`;
+    addCart.id = `ida_${isData.id}`;
     addCart.innerHTML = "Adicionar ao carrinho";
     addCart.classList.add("productButton");
-    addCart.addEventListener("click", function () {
-      let idElement = isData.id;
-      let id = parseInt(idElement);
+    
+    //evento do click
+    addCart.addEventListener("click", function (e) {
+      
 
+      let idElemento = e.target.id;
+      let id = parseInt(idElemento.substring(4));
+      
       let object = searchCard(id);
+
       let elementObject = createCard(object);
 
       document.querySelector(".cart-products").appendChild(elementObject);
-      let hide = document.querySelector(".cart-empty").remove();
+
+      count++
+      document.querySelectorAll(".quantidade").innerText = ( ``);
+      document.querySelector(".cart-empty").remove();
     });
 
     //herarquia dos elementos
-    liData.appendChild(img);
-    liData.appendChild(div);
+    li.appendChild(img);
+    li.appendChild(div);
     div.appendChild(tag);
     div.appendChild(nameItem);
     div.appendChild(description);
@@ -56,25 +70,8 @@ function renderCards(lists) {
     div.appendChild(addCart);
 
     //inserindo os elementos
-    productsList.append(liData);
+    productsList.appendChild(li);
   }
-
-  // selecionar e voltar com o resultado
-
-  let headerMenu = document.querySelector(".header-menu");
-  headerMenu.addEventListener("click", function () {
-
-    let usersFiltereds = [];
-
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].tag === tag || data[i].nameItem) {
-        usersFiltereds.push(data[i]); // incluir na  lista
-
-        return data[i];
-      }
-    }
-    return usersFiltereds;
-  });
 }
 
 function searchCard(id) {
@@ -85,17 +82,16 @@ function searchCard(id) {
   }
 }
 
+
+//os cartões do carrinho
 function createCard(isData) {
+
   let li = document.createElement("li");
-  let nameItems = document.createElement("nameItem");
   let img = document.createElement("img");
+  let divItem = document.createElement("div");
+  let nameItems = document.createElement("h2");
   let p = document.createElement("p");
   let removeBtn = document.createElement("button");
-
-  const count = 0;
-  for (let i = 0; i < isData.length; i++) {
-    count = count + i;
-  }
 
   li.id = `fin_${isData.id}`;
   li.classList.add("item");
@@ -108,13 +104,25 @@ function createCard(isData) {
   removeBtn.id = `fip_${isData.id}`;
   removeBtn.classList.add("removeButton");
 
+  removeBtn.addEventListener('click' , function(event){
+    // let idElemento = event.target.id;
+    //     let id = parseInt(idElemento.substring(4));
+
+    //     let btn = document.querySelectorAll(`fin_${id}`).remove()
+    let listPath = event.composedPath();
+    listPath[1].remove()
+    img.remove()
+  })
+
   li.appendChild(img);
-  li.appendChild(nameItems);
-  li.appendChild(p);
-  li.appendChild(removeBtn);
+  li.appendChild(divItem);
+  divItem.appendChild(nameItems);
+  divItem.appendChild(p);
+  divItem.appendChild(removeBtn);
 
   return li;
 }
 
 searchCard(data);
+
 renderCards(data);
