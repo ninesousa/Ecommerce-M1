@@ -107,10 +107,10 @@ main {
 }
 
 .cart-details {
-  height: 25%;
+  height: 30%;
   width: 100%;
   background-color: #333333;
-  padding: 15px;
+  padding: 10px;
   box-sizing: border-box;
   display: flex;
   float: left;
@@ -163,25 +163,23 @@ font-size: 12px;
 .products-list {
   display: flex;
   flex-wrap: wrap;
-  height: 34%;
+  height: 68%;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .cardProduct {
   background-color: #f5f5f5;
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: first baseline;
   align-items: center;
   list-style: none;
-  padding: 30px 3px 45px 3px;
+  border-radius: 13px;
+  padding: 13px;
   gap: 6px;
   margin: 15px;
-  margin-top: 10px;
-  width: 22%;
-  height: 100%;
+  width: 25%;
+  height: 63%;
   border: solid 2px transparent;
 }
 
@@ -213,10 +211,10 @@ li p {
   line-height: 19px;
 }
 
-.card {
+.cardProduct > .card {
   background-color: #ffffff;
-  padding: 4px 3px;
-  border-radius: 10px;
+  padding: 5%;
+  border-radius: 7%;
 }
 
 .description {

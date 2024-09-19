@@ -1,16 +1,16 @@
-//somar
-//metodo include para pesquisa
-//filtrar
-
 let count = 0;
+let totalValue = 0;
 
-function renderCards(lists) {// lidas de produtos
+function renderCards(lists) {
   let productsList = document.querySelector(".products-list");
+
+  // Limpa a lista de produtos antes de renderizar novos produtos
+  productsList.innerHTML = '';
 
   for (let i = 0; i < lists.length; i++) {
     let isData = lists[i]; // abstração
 
-    //elementos novos
+    // Criação dos elementos
     let li = document.createElement("li");
     let div = document.createElement("div");
     let img = document.createElement("img");
@@ -20,7 +20,7 @@ function renderCards(lists) {// lidas de produtos
     let addCart = document.createElement("button");
     let tag = document.createElement("p");
 
-    //configuração
+    // Configuração dos elementos
     li.id = `_${isData.id}`;
     li.classList.add("cardProduct");
 
@@ -37,30 +37,30 @@ function renderCards(lists) {// lidas de produtos
     tag.innerHTML = isData.tag;
     tag.classList.add("tag");
 
-    //botao add
+    // Configuração do botão
     addCart.id = `ida_${isData.id}`;
     addCart.innerHTML = "Adicionar ao carrinho";
     addCart.classList.add("productButton");
-    
-    //evento do click
-    addCart.addEventListener("click", function (e) {
-      
 
+    // Evento do botão de adicionar ao carrinho
+    addCart.addEventListener("click", function (e) {
       let idElemento = e.target.id;
       let id = parseInt(idElemento.substring(4));
-      
       let object = searchCard(id);
-
       let elementObject = createCard(object);
-
       document.querySelector(".cart-products").appendChild(elementObject);
 
-      count++
-      document.querySelectorAll(".quantidade").innerText = ( ``);
-      document.querySelector(".cart-empty").remove();
+      count++;
+      totalValue += object.value;
+
+      updateCartDetails();
+
+      if (document.querySelector(".cart-empty")) {
+        document.querySelector(".cart-empty").remove();
+      }
     });
 
-    //herarquia dos elementos
+    // Hierarquia dos elementos
     li.appendChild(img);
     li.appendChild(div);
     div.appendChild(tag);
@@ -69,7 +69,7 @@ function renderCards(lists) {// lidas de produtos
     div.appendChild(value);
     div.appendChild(addCart);
 
-    //inserindo os elementos
+    // Inserindo os elementos na lista de produtos
     productsList.appendChild(li);
   }
 }
@@ -82,10 +82,7 @@ function searchCard(id) {
   }
 }
 
-
-//os cartões do carrinho
 function createCard(isData) {
-
   let li = document.createElement("li");
   let img = document.createElement("img");
   let divItem = document.createElement("div");
@@ -104,14 +101,22 @@ function createCard(isData) {
   removeBtn.id = `fip_${isData.id}`;
   removeBtn.classList.add("removeButton");
 
-  removeBtn.addEventListener('click' , function(event){
-    // let idElemento = event.target.id;
-    //     let id = parseInt(idElemento.substring(4));
+  removeBtn.addEventListener('click', function (event) {
+    let idElemento = event.target.id;
+    let id = parseInt(idElemento.substring(4));
+    let product = searchCard(id);
 
-    //     let btn = document.querySelectorAll(`fin_${id}`).remove()
-    let listPath = event.composedPath();
-    listPath[1].remove()
-    img.remove()
+    if (product) {
+      totalValue -= product.value;
+      count--;
+    }
+    
+    let listItem = document.getElementById(`fin_${id}`);
+    if (listItem) {
+      listItem.remove();
+    }
+
+    updateCartDetails();
   })
 
   li.appendChild(img);
@@ -123,6 +128,37 @@ function createCard(isData) {
   return li;
 }
 
-searchCard(data);
+function updateCartDetails() {
+  document.querySelector(".countProduct").innerText = count;
+  document.querySelector(".countValue").innerText = `R$${totalValue.toFixed(2)}`;
 
+  const cartProducts = document.querySelector(".cart-products");
+  if (count === 0) {
+    if (!cartProducts.querySelector(".cart-empty")) {
+      let emptyMessage = document.createElement("p");
+      emptyMessage.innerText = "Seu carrinho está vazio.";
+      emptyMessage.classList.add("cart-empty");
+      cartProducts.appendChild(emptyMessage);
+    }
+  } else {
+    let emptyMessage = cartProducts.querySelector(".cart-empty");
+    if (emptyMessage) {
+      emptyMessage.remove();
+    }
+  }
+}
+
+// Função de pesquisa
+function searchProducts(query) {
+  let filteredData = data.filter(product => product.nameItem.toLowerCase().includes(query.toLowerCase()));
+  renderCards(filteredData);
+}
+
+// Evento do botão de pesquisa
+document.querySelector(".search-button").addEventListener("click", function() {
+  let query = document.querySelector(".search-input").value;
+  searchProducts(query);
+});
+
+// Renderiza os cartões iniciais
 renderCards(data);
